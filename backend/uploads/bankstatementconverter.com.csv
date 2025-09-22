@@ -1,0 +1,128 @@
+﻿Post Date,Description,Debits,Credits,Balance
+---------------------------------------------------------------------------------------------------------,,,,
+09/01/24,Payment to City Gas & Electric,112.50,,3428.00
+09/01/24,Rent Payment - Anytown Apartments,1800.00,,1628.00
+09/05/24,Point of Sale - Grocery Mart,155.40,,1472.60
+09/07/24,Direct Deposit - ACME Corporation,,2600.00,4072.60
+09/15/24,Online Pmt - GigaNet Internet,75.00,,3997.60
+09/20/24,Recurring Pmt - Streamify Svc,15.99,,3981.61
+09/21/24,Direct Deposit - ACME Corporation,,2600.00,6581.61
+09/22/24,Auto Loan Pmt - AutoNation,430.00,,6151.61
+09/28/24,Point of Sale - FuelUp Gas Station,55.00,,6096.61
+09/30/24,Transfer to Savings Acct XXXX-1122,1800.00,,4296.61
+09/30/24,Online Pmt - Amazon Marketplace,411.31,,3885.30
+---------------------------------------------------------------------------------------------------------,,,,
+10/01/24,Payment to City Gas & Electric,108.90,,3776.40
+10/01/24,Rent Payment - Anytown Apartments,1800.00,,1976.40
+10/06/24,Direct Deposit - ACME Corporation,,2600.00,4576.40
+10/08/24,Point of Sale - Grocery Mart,180.55,,4395.85
+10/11/24,Cinema Plex Movie Tickets,32.00,,4363.85
+10/15/24,Online Pmt - GigaNet Internet,75.00,,4288.85
+10/20/24,Recurring Pmt - Streamify Svc,15.99,,4272.86
+10/20/24,Direct Deposit - ACME Corporation,,2600.00,6872.86
+10/22/24,Auto Loan Pmt - AutoNation,430.00,,6442.86
+10/26/24,Point of Sale - The Daily Grind Coffee,11.54,,6431.32
+10/29/24,Online Purchase - Tech Gadgets Inc.,348.00,,6083.32
+---------------------------------------------------------------------------------------------------------,,,,
+11/01/24,Payment to City Gas & Electric,125.70,,5957.62
+11/01/24,Rent Payment - Anytown Apartments,1800.00,,4157.62
+11/05/24,Direct Deposit - ACME Corporation,,2600.00,6757.62
+11/10/24,Point of Sale - Grocery Mart,165.15,,6592.47
+11/15/24,Online Pmt - GigaNet Internet,75.00,,6517.47
+11/19/24,Point of Sale - FuelUp Gas Station,58.00,,6459.47
+11/20/24,Recurring Pmt - Streamify Svc,15.99,,6443.48
+11/21/24,Direct Deposit - ACME Corporation,,2600.00,9043.48
+11/22/24,Auto Loan Pmt - AutoNation,430.00,,8613.48
+11/28/24,Black Friday Sale - MegaRetail,785.31,,7828.17
+---------------------------------------------------------------------------------------------------------,,,,
+12/01/24,Payment to City Gas & Electric,148.90,,7679.27
+12/01/24,Rent Payment - Anytown Apartments,1800.00,,5879.27
+12/05/24,Direct Deposit - ACME Corporation,,2600.00,8479.27
+12/10/24,Online Pmt - Holiday Toys Inc.,255.80,,8223.47
+12/15/24,Online Pmt - GigaNet Internet,75.00,,8148.47
+12/18/24,Online Pmt - FlyAway Airlines,562.40,,7586.07
+12/20/24,Recurring Pmt - Streamify Svc,15.99,,7570.08
+12/21/24,Direct Deposit - ACME Corporation,,2600.00,10170.08
+---------------------------------------------------------------------------------------------------------,,,,
+01/01/25,Payment to City Gas & Electric,155.80,,6998.96
+01/01/25,Rent Payment - Anytown Apartments,1800.00,,5198.96
+01/03/25,Annual Membership - L.A. Fitness,450.00,,4748.96
+01/05/25,Direct Deposit - ACME Corporation,,2600.00,7348.96
+01/15/25,Online Pmt - GigaNet Internet,75.00,,7273.96
+01/20/25,Recurring Pmt - Streamify Svc,15.99,,7257.97
+01/21/25,Direct Deposit - ACME Corporation,,2600.00,9857.97
+01/22/25,Auto Loan Pmt - AutoNation,430.00,,9427.97
+01/25/25,Direct Deposit - ANNUAL BONUS,,1500.00,10927.97
+01/29/25,Point of Sale - Grocery Mart,284.41,,10643.56
+---------------------------------------------------------------------------------------------------------,,,,
+02/01/25,Payment to City Gas & Electric,162.30,,10481.26
+02/01/25,Rent Payment - Anytown Apartments,1800.00,,8681.26
+02/05/25,Direct Deposit - ACME Corporation,,2600.00,11281.26
+02/10/25,Online Pmt - The Appliance Store,1250.00,,10031.26
+02/14/25,Point of Sale - The Rose Restaurant,185.28,,9845.98
+02/15/25,Online Pmt - GigaNet Internet,75.00,,9770.98
+02/20/25,Recurring Pmt - Streamify Svc,15.99,,9754.99
+02/21/25,Direct Deposit - ACME Corporation,,2600.00,12354.99
+02/22/25,Auto Loan Pmt - AutoNation,430.00,,11924.99
+02/26/25,Point of Sale - FuelUp Gas Station,62.31,,11862.68
+02/28/25,Point of Sale - Grocery Mart,215.00,,11647.6
+---------------------------------------------------------------------------------------------------------,,,,
+03/01/25,Payment to City Gas & Electric,145.50,,11502.18
+03/01/25,Rent Payment - Anytown Apartments,1800.00,,9702.18
+03/05/25,Direct Deposit - ACME Corporation,,2600.00,12302.18
+03/10/25,Point of Sale - Grocery Mart,247.63,,12054.55
+03/15/25,Online Pmt - GigaNet Internet,75.00,,11979.55
+03/18/25,IRS TREASURY - TAX REFUND,,1878.00,13857.55
+03/20/25,Recurring Pmt - Streamify Svc,15.99,,13841.56
+02/21/25,Direct Deposit - ACME Corporation,,2600.00,16441.56
+---------------------------------------------------------------------------------------------------------,,,,
+04/01/25,Payment to City Gas & Electric,133.70,,15757.86
+04/01/25,Rent Payment - Anytown Apartments,1800.00,,13957.86
+04/05/25,Direct Deposit - ACME Corporation,,2600.00,16557.86
+04/12/25,Point of Sale - The Home Depot,355.85,,16202.01
+04/15/25,Online Pmt - GigaNet Internet,75.00,,16127.01
+04/20/25,Recurring Pmt - Streamify Svc,15.99,,16111.02
+04/21/25,Direct Deposit - ACME Corporation,,2600.00,18711.02
+04/22/25,Auto Loan Pmt - AutoNation,430.00,,18281.02
+04/29/25,Point of Sale - Grocery Mart,200.01,,18081.01
+---------------------------------------------------------------------------------------------------------,,,,
+05/01/25,Payment to City Gas & Electric,121.50,,17959.51
+05/01/25,Rent Payment - Anytown Apartments,1800.00,,16159.51
+05/05/25,Direct Deposit - ACME Corporation,,2600.00,18759.51
+05/10/25,Online Pmt - Global Airways,1250.00,,17509.51
+05/15/25,Online Pmt - GigaNet Internet,75.00,,17434.51
+05/18/25,Transfer to Savings Acct XXXX-1122,2000.00,,15434.51
+05/20/25,Recurring Pmt - Streamify Svc,15.99,,15418.52
+05/21/25,Direct Deposit - ACME Corporation,,2600.00,18018.52
+05/22/25,Auto Loan Pmt - AutoNation,430.00,,17588.52
+05/28/25,Point of Sale - Outdoor World,95.62,,17492.90
+---------------------------------------------------------------------------------------------------------,,,,
+06/01/25,Payment to City Gas & Electric,135.50,,17357.40
+06/01/25,Rent Payment - Anytown Apartments,1800.00,,15557.40
+06/05/25,Direct Deposit - ACME Corporation,,2600.00,18157.40
+06/15/25,Online Pmt - GigaNet Internet,75.00,,18082.40
+06/18/25,Foreign ATM Withdrawal Fee,15.00,,18067.40
+06/18/25,Foreign ATM Withdrawal - VACATION,500.00,,17567.40
+06/20/25,Recurring Pmt - Streamify Svc,15.99,,17551.41
+06/21/25,Direct Deposit - ACME Corporation,,2600.00,20151.41
+---------------------------------------------------------------------------------------------------------,,,,
+07/01/25,Payment to City Gas & Electric,141.80,,17445.20
+07/01/25,Rent Payment - Anytown Apartments,1800.00,,15645.20
+07/05/25,Direct Deposit - ACME Corporation,,2600.00,18245.2
+07/11/25,Point of Sale - Grocery Mart,221.64,,18023.5
+07/15/25,Online Pmt - GigaNet Internet,75.00,,17948.5
+07/20/25,Recurring Pmt - Streamify Svc,15.99,,17932.57
+07/21/25,Direct Deposit - ACME Corporation,,2600.00,20532.5
+07/22/25,Auto Loan Pmt - AutoNation,430.00,,20102.5
+07/30/25,Point of Sale - FuelUp Gas Station,101.00,,20001.57
+---------------------------------------------------------------------------------------------------------,,,,
+08/01/25,Payment to City Gas & Electric,138.50,,19863.07
+08/01/25,Rent Payment - Anytown Apartments,1800.00,,18063.0
+08/05/25,Direct Deposit - ACME Corporation,,2600.00,20663.0
+08/10/25,Point of Sale - Dr. Evans Co-Pay,50.00,,20613.0
+08/15/25,Online Pmt - GigaNet Internet,75.00,,20538.0
+08/18/25,Point of Sale - Furniture World,995.35,,19542.7
+08/20/25,Recurring Pmt - Streamify Svc,15.99,,19526.7
+08/21/25,Direct Deposit - ACME Corporation,,2600.00,22126.7
+08/22/25,Auto Loan Pmt - AutoNation,430.00,,21696.7
+08/29/25,Point of Sale - Grocery Mart,6.00,,21690.73
