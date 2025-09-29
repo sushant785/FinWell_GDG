@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import {jwtDecode} from "jwt-decode";
+import UserDropdown from "../components/UserDropdown";
 
 export default function Chat() {
   const [messages, setMessages] = useState([
@@ -8,6 +10,21 @@ export default function Chat() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
+
+  const navigate = useNavigate();
+
+  const token = localStorage.getItem("token")
+  let username = "";
+
+  if(token) {
+    try {
+      const decoded = jwtDecode(token)
+      username = decoded.username;
+    }
+    catch(err) {
+      console.log("invalid token(frontend)",err)
+    }
+  }
 
   // Auto-scroll to bottom when new messages come in
   useEffect(() => {
@@ -49,7 +66,7 @@ export default function Chat() {
       <header className="bg-slate-900/70 backdrop-blur-md border-b border-slate-800 px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-3">
-          <Link to="/" className="flex items-center gap-2">
+          <Link to="#" className="flex items-center gap-2">
             <div className="w-6 h-6 text-emerald-400">
               <svg
                 fill="none"
@@ -82,23 +99,29 @@ export default function Chat() {
           >
             Chatbot
           </Link>
+          <button
+            onClick={() => {
+              localStorage.removeItem("token");
+              navigate("/")
+            }}
+            className="text-sm font-medium text-gray-300 hover:text-emerald-400 transition-colors"
+          >
+            Logout
+          </button>
         </nav>
 
-        {/* User Options */}
-        <div className="flex items-center gap-4">
-          <button className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-800 transition-colors">
-            <span className="material-symbols-outlined text-gray-300">
-              notifications
-            </span>
-          </button>
-          <div
-            className="w-10 h-10 rounded-full bg-cover bg-center"
-            style={{
-              backgroundImage:
-                "url('https://lh3.googleusercontent.com/aida-public/AB6AXuA2-ty28D6JOS9aNjjw9swQTpfZ_o-Kpxj9jXHJDViw37P8_Sd13CAiCL7HXswgRtpUCLT1EfVODPDR_wGlU_SnJSrVrYdVLmSc_stkEX1e4mxONK7kdrUw-ex8DP_iFeo2FbXZdclZ2X3HW6CENrr0c-goUrzG_36aSb6_RY_IfCot1hnIPW7AQg64S2WqMSkIypWaIu4Gc2gdqlS3jG-Er8M34VCZLKGtfkVIaJGwTqczWEAslBmkrZr2GDhNKWL1E6GFNXcuhDSh')",
-            }}
-          ></div>
-        </div>
+        
+        {/* <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <div className="w-10 h-10 flex items-center justify-center rounded-full">
+              <span className="material-symbols-outlined text-grey text-4xl hover:text-emerald-400 transition-colors">
+                account_circle
+              </span>
+            </div>
+            <span className="text-lg font-medium text-gray-300 hover:text-emerald-400 transition-colors">{username || "User"}</span>
+          </div>
+        </div> */}
+        <UserDropdown />
       </header>
 
       {/* Chat Main */}
