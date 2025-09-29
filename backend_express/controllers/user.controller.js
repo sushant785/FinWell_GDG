@@ -1,0 +1,77 @@
+const bcrypt = require("bcryptjs");
+const User = require("../models/user.model.js");
+const generateToken = require("../middlewares/generateToken.js")
+
+const signup = async (req, res) => {
+  try {
+    const { username, email, phone, password } = req.body;
+
+    if (!username || !email || !phone || !password) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
+    // Check if user exists
+    const existingUser = await User.findOne({
+      $or: [{ username }, { email }, { phone }],
+    });
+
+    if (existingUser) {
+      return res.status(409).json({ error: "User already exists" });
+    }
+
+    // Hash password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    
+    const newUser = new User({
+      username,
+      email,
+      phone,
+      password: hashedPassword,
+    });
+
+    await newUser.save();
+
+    res.status(201).json({ message: "User created successfully" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+
+
+const login = async (req, res) => {
+  try {
+    const { username, password } = req.body;
+
+    if (!username || !password) {
+      return res.status(400).json({ error: "Username and password required" });
+    }
+
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    const token = generateToken({ id:user._id , username:user.username})
+
+    res.status(200).json({
+      message: "Login successful",
+      token,
+      username: user.username,
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+module.exports = {
+  signup,
+  login
+};
