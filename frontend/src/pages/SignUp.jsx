@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 
 const SignUp = () => {
     const [username, setUsername] = useState("");
@@ -10,6 +10,8 @@ const SignUp = () => {
     const [file, setFile] = useState(null);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -32,7 +34,7 @@ const SignUp = () => {
             formData.append("password", password);
             formData.append("file", file);
 
-            const response = await fetch("http://127.0.0.1:5000/signup", {
+            const response = await fetch("http://localhost:5000/users/signup", {
                 method: "POST",
                 body: formData,
             });
@@ -41,7 +43,7 @@ const SignUp = () => {
 
             if (response.ok) {
                 alert(data.message);
-                // Optionally, redirect to login page
+                navigate("/login")
             } else {
                 alert(data.error || "Signup failed");
             }

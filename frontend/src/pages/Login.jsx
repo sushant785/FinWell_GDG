@@ -12,7 +12,7 @@ const Login = () => {
     setError(""); // reset error
 
     try {
-      const response = await fetch("http://localhost:5000/login", {
+      const response = await fetch("http://localhost:5000/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -22,16 +22,20 @@ const Login = () => {
 
       const data = await response.json();
 
-      if (response.ok) {
-        // Login successful
+      if(response.ok) 
+      {
         console.log("Login successful", data);
-        // Redirect or store user info / JWT token if you implement it later
-        navigate("/dashboard"); // example redirect
-      } else {
-        // Login failed
+        localStorage.setItem("token",data.token);
+        navigate("/dashboard");
+      } 
+
+      else 
+      {
         setError(data.error || "Login failed");
       }
-    } catch (err) {
+    } 
+    
+    catch(err) {
       console.error("Error connecting to server:", err);
       setError("Server error. Please try again later.");
     }
