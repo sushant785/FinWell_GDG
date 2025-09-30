@@ -1,7 +1,8 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation,useNavigate } from "react-router-dom";
 
 export default function DashboardNavbar() {
   const location = useLocation();
+  const navigate = useNavigate();
 
   return (
     <header className="sticky top-0 z-50 w-full bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
@@ -20,6 +21,15 @@ export default function DashboardNavbar() {
           >
             Chatbot
           </Link>
+          <button
+            onClick={() => {
+              localStorage.removeItem("token");
+              navigate("/")
+            }}
+            className="text-white hover:text-primary"
+          >
+            Logout
+          </button>
         </nav>
       </div>
     </header>
