@@ -27,6 +27,14 @@ const userSchema = new mongoose.Schema(
       required: true,
       minlength: 6,
     },
+    bankStatementUrl: {
+      type: String, 
+      default: null,
+    },
+    bankStatementId: {
+      type: String, //(for deletion/replacement)
+      default: null,
+    },
   },
   { timestamps: true }
 );

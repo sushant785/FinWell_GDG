@@ -4,7 +4,7 @@ const { signup, login } = require("../controllers/user.controller.js");
 
 const router = express.Router();
 
-const upload = multer({ dest: "uploads/" }); +
+const upload = multer({ dest: "uploads/" }); 
 
 router.post("/signup", upload.single("file"), signup);
 router.post("/login", login);

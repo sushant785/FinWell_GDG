@@ -1,9 +1,16 @@
+const express = require("express");
+const multer = require("multer");
+const fs = require("fs");
+const cloudinary = require("../config/cloudinary.js")
 const bcrypt = require("bcryptjs");
 const User = require("../models/user.model.js");
 const generateToken = require("../middlewares/generateToken.js")
 
 const signup = async (req, res) => {
   try {
+
+    console.log("req.body:", req.body);
+    console.log("req.file:", req.file);
     const { username, email, phone, password } = req.body;
 
     if (!username || !email || !phone || !password) {
@@ -23,12 +30,30 @@ const signup = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
+    let fileUrl = null;
+    let fileID = null;
+
+    if(req.file) {
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        resource_type: "raw",
+        folder:"bank_statements",
+      })
+
+      fileUrl = result.secure_url;
+      fileID = result.public_id;
+
+      fs.unlinkSync(req.file.path)
+    }
+
     
     const newUser = new User({
       username,
       email,
       phone,
       password: hashedPassword,
+      bankStatementUrl: fileUrl,
+      bankStatementId: fileID,
+
     });
 
     await newUser.save();
