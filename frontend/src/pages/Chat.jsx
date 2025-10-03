@@ -1,16 +1,91 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {jwtDecode} from "jwt-decode";
+import jwtDecode from "jwt-decode";
 import UserDropdown from "../components/UserDropdown";
 
+
+// --- ADDED CODE START ---
+
+// 1. A placeholder for your actual chart component.
+// You would replace this with a real charting library like Chart.js or Recharts.
+const MyChartComponent = ({ data }) => {
+  return (
+    <div className="bg-slate-800 p-4 rounded-lg my-2 text-xs text-gray-300">
+      <h4>Chart Data (Placeholder)</h4>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+    </div>
+  );
+};
+
+
+// 2. This is the "smart" rendering function that parses the API response.
+const renderApiResponse = (responseData) => {
+  // If the data is an object (and not null), we assume it's for a chart.
+  if (typeof responseData === 'object' && responseData !== null) {
+    return <MyChartComponent data={responseData} />;
+  }
+
+  // If the data is a string, we parse it into formatted JSX.
+  if (typeof responseData === 'string') {
+    const elements = [];
+    const lines = responseData.split('\n');
+    let listItems = [];
+
+    lines.forEach((line, index) => {
+      const trimmedLine = line.trim();
+
+      if (trimmedLine.startsWith('*')) {
+        listItems.push(<li key={index}>{trimmedLine.replace(/^\*\s*/, '')}</li>);
+      } else {
+        if (listItems.length > 0) {
+          elements.push(<ul className="list-disc list-inside my-2 pl-4" key={`ul-${index}`}>{listItems}</ul>);
+          listItems = [];
+        }
+
+        if (trimmedLine.startsWith('###')) {
+          elements.push(<h3 className="text-lg font-bold my-3" key={index}>{trimmedLine.replace(/^###\s*/, '')}</h3>);
+        } else if (trimmedLine) {
+          const parts = trimmedLine.split('**');
+          const pElement = (
+            <p className="my-2" key={index}>
+              {parts.map((part, i) =>
+                i % 2 === 1 ? <strong key={i}>{part}</strong> : part
+              )}
+            </p>
+          );
+          elements.push(pElement);
+        }
+      }
+    });
+
+    if (listItems.length > 0) {
+      elements.push(<ul className="list-disc list-inside my-2 pl-4" key="ul-end">{listItems}</ul>);
+    }
+    return elements;
+  }
+  return <p>Unsupported response format.</p>;
+};
+
+
+// 3. A small wrapper component to keep the main chat logic clean.
+// MODIFIED: It now accepts 'sender' to differentiate between user and bot messages.
+const MessageContent = ({ content, sender }) => {
+  // For bot messages, ALWAYS use the smart renderer.
+  if (sender === 'bot') {
+    return <div>{renderApiResponse(content)}</div>;
+  }
+  // For user messages, the content is just a simple string.
+  return <p className="text-sm leading-relaxed">{content}</p>;
+};
+
+// --- ADDED CODE END ---
+
+
 export default function Chat() {
-  const [messages, setMessages] = useState([
-    { sender: "bot", text: "Hi Gargi, how can I help you today?" },
-  ]);
+  
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
-
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token")
@@ -26,7 +101,10 @@ export default function Chat() {
     }
   }
 
-  // Auto-scroll to bottom when new messages come in
+  const [messages, setMessages] = useState([
+    { sender: "bot", text: `Hi ${username}, how can I help you today?` },
+  ]);
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -36,18 +114,29 @@ export default function Chat() {
 
     const userMessage = { sender: "user", text: input };
     setMessages((prev) => [...prev, userMessage]);
-    const prompt = input;
+    const userQuery = input;
     setInput("");
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/ask", {
+      const res = await fetch("http://127.0.0.1:8000/query", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt }),
+        body: JSON.stringify({ 
+          query:userQuery,
+          csv_filename: "BS1.csv"
+          }),
       });
 
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.detail || "An unknown error occurred.");
+      }
+
       const data = await res.json();
+      console.log("Backend Response : ",data)
+
+      // The `data.response` can be a string OR a JSON object for a chart
       const botMessage = { sender: "bot", text: data.response };
       setMessages((prev) => [...prev, botMessage]);
     } catch (err) {
@@ -109,18 +198,6 @@ export default function Chat() {
             Logout
           </button>
         </nav>
-
-        
-        {/* <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 flex items-center justify-center rounded-full">
-              <span className="material-symbols-outlined text-grey text-4xl hover:text-emerald-400 transition-colors">
-                account_circle
-              </span>
-            </div>
-            <span className="text-lg font-medium text-gray-300 hover:text-emerald-400 transition-colors">{username || "User"}</span>
-          </div>
-        </div> */}
         <UserDropdown />
       </header>
 
@@ -168,7 +245,8 @@ export default function Chat() {
                       : "bg-slate-700 text-gray-100 rounded-bl-md shadow-blue-500/30"
                   }`}
                 >
-                  <p className="text-sm leading-relaxed">{msg.text}</p>
+                  {/* MODIFIED: Pass the sender to the component */}
+                  <MessageContent content={msg.text} sender={msg.sender} />
                 </div>
 
                 {/* User Avatar */}
@@ -197,7 +275,6 @@ export default function Chat() {
                 </div>
               </div>
             )}
-
             <div ref={messagesEndRef}></div>
           </div>
 
@@ -242,3 +319,4 @@ export default function Chat() {
     </div>
   );
 }
+

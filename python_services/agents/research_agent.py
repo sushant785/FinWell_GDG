@@ -3,7 +3,7 @@ from langchain.agents import AgentExecutor, Tool, create_react_agent
 from langchain_community.tools.tavily_search import TavilySearchResults
 from langchain.prompts import PromptTemplate
 from langchain_tavily import TavilySearch
-from llm_main import llm
+from agents.llm_main import llm
 
 # This function now correctly takes the user's query and the analysis context
 def create_research_agent(query: str, analysis_context: str):

@@ -1,5 +1,5 @@
 import json
-from llm_main import llm  # Assuming this is your initialized LLM instance
+from agents.llm_main import llm  # Assuming this is your initialized LLM instance
 from textwrap import dedent
 
 # It's better practice to define the agent names as simple strings

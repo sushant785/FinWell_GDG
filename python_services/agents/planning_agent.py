@@ -4,8 +4,8 @@ import json
 
 # Import your custom agent creation functions and the LLM instance
 
-from llm_main import llm
-from investment import investment_agent
+from agents.llm_main import llm
+from agents.investment import investment_agent
 
 def planner(query: str,context: dict):
         """

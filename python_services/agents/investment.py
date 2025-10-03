@@ -1,5 +1,5 @@
-from llm_main import llm
-from data_analysis_agent import create_data_analysis_agent
+from agents.llm_main import llm
+from agents.data_analysis_agent import create_data_analysis_agent
 import pandas as pd
 
 def investment_analysis(dataframe):
@@ -9,7 +9,7 @@ def investment_analysis(dataframe):
 
 def investment_agent(query, context):
     """Returns the investment analysis agent from the context."""
-    icici_df = pd.read_csv('../icici_one.csv')
+    icici_df = pd.read_csv('icici_one.csv')
     bank_analysis = investment_analysis(icici_df)
     
     data_analysis = context.get('data_analysis', 'No analysis available.')

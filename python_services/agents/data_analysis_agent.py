@@ -2,7 +2,7 @@
 
 import pandas as pd
 from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe_agent
-from llm_main import llm
+from agents.llm_main import llm
 
 def create_data_analysis_agent(dataframe: pd.DataFrame):
     """Creates a data analysis agent with custom instructions."""

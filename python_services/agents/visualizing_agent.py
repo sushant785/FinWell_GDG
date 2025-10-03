@@ -1,6 +1,6 @@
 import json
 from textwrap import dedent
-from llm_main import llm
+from agents.llm_main import llm
 
 # I'm assuming 'llm' is your initialized language model object, e.g., from LangChain or a similar library.
 # from llm_main import llm 
