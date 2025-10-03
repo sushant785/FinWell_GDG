@@ -98,7 +98,7 @@ class FinWellAgent:
 
 if __name__ == '__main__':
     try:
-        df = pd.read_csv('BS1.csv')
+        df = pd.read_csv('../BS1.csv')
     except FileNotFoundError:
         print("Error: BS1.csv not found. Please make sure the file is in the same directory.")
         exit()

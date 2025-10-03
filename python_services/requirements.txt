@@ -6,3 +6,5 @@ tavily-python
 python-dotenv
 wikipedia
 langchain-experimental
+langchain_tavily
+tabulate
