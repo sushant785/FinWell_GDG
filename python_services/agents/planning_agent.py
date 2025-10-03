@@ -5,7 +5,7 @@ import json
 # Import your custom agent creation functions and the LLM instance
 
 from llm_main import llm
-
+from investment import investment_agent
 
 def planner(query: str,context: dict):
         """
@@ -13,7 +13,7 @@ def planner(query: str,context: dict):
         """
         data_analysis = context.get('data_analysis', 'No analysis available.')
         data_research = context.get('data_research', 'No research available.')
-        
+        investment = context.get('investment', 'No investment info available.')
         # This prompt is now much more effective.
         prompt = f"""
             You are a helpful financial planning assistant.
@@ -25,7 +25,7 @@ def planner(query: str,context: dict):
 
             Data Analysis Summary: "{data_analysis}"
             Research Summary: "{data_research}"
-
+            If the user has any recommended investment plans you will get it from {investment} 
             Your Task:
             1.  First, check if the user's goal "{query}" sounds like they are asking for a financial plan or roadmap.
             2.  If they are, create a clear, actionable financial plan with specific steps.
@@ -34,7 +34,7 @@ def planner(query: str,context: dict):
             5.  Structure the output in clean markdown. Keep the entire response under 250 words or IF USER HAS SPECIFIED ANY LENGTH , GIVE IN THAT .
             """
         
-        print("\n--- Step 3: Generating Final Plan ---")
+        
         final_plan = llm.invoke(prompt)
         context['plan'] = final_plan
         

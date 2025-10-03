@@ -8,7 +8,8 @@ AGENT_DEFINITIONS = {
     "create_data_analysis_agent": "Analyzes the user's financial data to find stats, trends, and anomalies. This should almost always be the first step.",
     "create_research_agent": "Performs external research online for information not in the user's data (e.g., flight costs, product prices, investment tips).",
     "create_visualization_points": "Generates structured JSON data for charts. Use only when the user explicitly asks for a graph, chart, or visualization.",
-    "planner": "Synthesizes all gathered information into a final, actionable plan or roadmap. This should usually be the last step."
+    "planner": "Synthesizes all gathered information into a final, actionable plan or roadmap. This should usually be the last step.",
+    "investment_agent": "Analyzes investment options and suggests the best investment or loan schemes based on the user's financial data and requirements."
 }
 
 def deciding_agent(query: str) -> list:

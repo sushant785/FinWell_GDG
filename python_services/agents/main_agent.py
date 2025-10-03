@@ -5,6 +5,7 @@ from decider_agent import deciding_agent
 import pandas as pd
 from planning_agent import planner
 from llm_main import llm
+from investment import investment_agent
 import json
 
 
@@ -51,6 +52,13 @@ class FinWellAgent:
                 self.context['plan'] = plan
                 self.results['plan'] = plan
                 print(plan)
+            
+            elif agent_name == "investment_agent":
+                print("\n--- Step 5: Investment Analysis ---")
+                investment = investment_agent(self.query, self.context)
+                self.context['investment'] = investment
+                self.results['investment'] = investment
+                print(investment)
 
             else:
                 print(f"Unknown agent: {agent_name}")
@@ -75,6 +83,9 @@ class FinWellAgent:
         # If only data analysis ran, return that
         if 'data_analysis' in self.results:
             return self.results['data_analysis']
+        
+        if 'investment' in self.results:
+            return self.results['investment']
         
         # If only visualization ran, return visualization data
         if 'visualization' in self.results:
