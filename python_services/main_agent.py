@@ -252,13 +252,13 @@ def run_agent_pipeline(query: str, csv_filepath: str):
     return final_output
 
 
-if __name__ == '__main__':
-    csv_file = 'BS1.csv'
-    user_query = input(f"What is your financial goal? (using {csv_file}): ")
+# if __name__ == '__main__':
+#     csv_file = 'BS1.csv'
+#     user_query = input(f"What is your financial goal? (using {csv_file}): ")
     
-    final_output = run_agent_pipeline(user_query, csv_file)
+#     final_output = run_agent_pipeline(user_query, csv_file)
     
-    print("\n" + "="*50)
-    print("FINAL OUTPUT:")
-    print("="*50)
-    print(final_output)
+#     print("\n" + "="*50)
+#     print("FINAL OUTPUT:")
+#     print("="*50)
+#     print(final_output)

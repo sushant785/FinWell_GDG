@@ -90,6 +90,7 @@ const login = async (req, res) => {
       message: "Login successful",
       token,
       username: user.username,
+      bankStatementUrl: user.bankStatementUrl
     });
   } catch (err) {
     res.status(500).json({ error: err.message });

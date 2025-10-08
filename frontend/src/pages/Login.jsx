@@ -26,6 +26,7 @@ const Login = () => {
       {
         console.log("Login successful", data);
         localStorage.setItem("token",data.token);
+        localStorage.setItem("bankStatementUrl",data.bankStatementUrl);
         navigate("/dashboard");
       } 
 

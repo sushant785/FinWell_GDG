@@ -89,6 +89,7 @@ export default function Chat() {
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token")
+  const csvUrl = localStorage.getItem("bankStatementUrl");
   let username = "";
 
   if(token) {
@@ -124,7 +125,7 @@ export default function Chat() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
           query:userQuery,
-          csv_filename: "BS1.csv"
+          csv_filename: csvUrl,
           }),
       });
 
@@ -190,7 +191,7 @@ export default function Chat() {
           </Link>
           <button
             onClick={() => {
-              localStorage.removeItem("token");
+              localStorage.clear();
               navigate("/")
             }}
             className="text-sm font-medium text-gray-300 hover:text-emerald-400 transition-colors"
