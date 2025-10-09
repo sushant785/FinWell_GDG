@@ -1,75 +1,121 @@
+#visualizatin agent 
+
+import pandas as pd
 import json
 from textwrap import dedent
 from agents.llm_main import llm
 
-# I'm assuming 'llm' is your initialized language model object, e.g., from LangChain or a similar library.
-# from llm_main import llm 
 
-def create_visualization_points(query: str, context: dict) -> str:
+def create_visualization_points(query: str, context: dict, df: pd.DataFrame) -> str:
     """
-    Generates structured JSON data for front-end visualizations based on a query and context.
-    """
-    data_analysis = context.get('data_analysis', 'No analysis available.')
-    data_research = context.get('data_research', 'No research available.')
-
-    # Using dedent to remove leading whitespace makes the prompt easier to read in the code.
-    prompt = dedent(f"""
-        **ROLE:**
-        You are an expert data visualization assistant. Your task is to convert analytical and research data into a structured JSON format suitable for a front-end charting library.
-
-        **CONTEXT:**
-        1.  **User's Query:** "{query}"
-        2.  **Data Analysis Provided:** "{data_analysis}"
-        3.  **Research Data Provided:** "{data_research}"
-
-        **TASK:**
-        1.  Analyze the provided CONTEXT.
-        2.  Based on the data, decide the most effective type of visualization (e.g., "bar", "line", "pie", "scatter").
-        3.  Generate the data points required for that visualization.
-        4.  Format your entire output as a single, valid JSON object. Do NOT include any explanations, comments, or markdown formatting like ```json.
-
-        **OUTPUT FORMAT (Strict JSON):**
-        Provide your response in the following JSON structure:
-        {{
-          "chart_type": "string (e.g., 'bar', 'line')",
-          "title": "A concise and descriptive title for the chart",
-          "description": "A brief one-sentence explanation of what the chart shows",
-          "data": [
-            {{ "key1": "value1", "key2": "value2" }},
-            {{ "key3": "value3", "key4": "value4" }}
-          ]
-        }}
-        
-        **EXAMPLE:**
-        If the query was about monthly expenses, the output might look like this:
-        {{
-          "chart_type": "bar",
-          "title": "Monthly Credits vs. Debits",
-          "description": "A comparison of total credits and debits for each month.",
-          "data": [
-            {{ "type": "credit", "month": "2022-01", "amount": 5808.09 }},
-            {{ "type": "debit", "month": "2022-01", "amount": 42984.0 }},
-            {{ "type": "credit", "month": "2022-02", "amount": 58228.0 }},
-            {{ "type": "debit", "month": "2022-02", "amount": 90535.0 }}
-          ]
-        }}
-    """)
-
-    # Assuming llm.invoke returns an object with a 'content' attribute or a raw string
-    response = llm.invoke(prompt)
+    Simple visualization - returns chart coordinates.
     
-    # It's good practice to clean the output to ensure it's valid JSON
-    if hasattr(response, 'content'):
-        clean_response = response.content.strip().replace("```json", "").replace("```", "")
-    else:
-        clean_response = str(response).strip().replace("```json", "").replace("```", "")
-        
-    # Optional: Validate that the output is actually parsable JSON before returning
+    Args:
+        query: User's query
+        context: Context dict with other agent results
+        df: DataFrame with bank statement data
+    
+    Returns:
+        JSON string with chart data and coordinates
+    """
+    print(f"\n🎨 VISUALIZATION AGENT")
+    print(f"Query: {query}")
+    print(f"✓ DataFrame: {df.shape[0]} rows × {df.shape[1]} columns")
+    
+    # Ask LLM for chart config
+    prompt = f"""
+Bank statement columns: {df.columns.tolist()}
+
+Sample data:
+{df.head(2).to_string()}
+
+User query: "{query}"
+
+Return ONLY this JSON:
+{{
+  "chart_type": "bar",
+  "group_by": "month",
+  "value_column": "Debit",
+  "aggregation": "sum"
+}}
+
+Rules:
+- chart_type: "bar", "line", or "pie"
+- group_by: "month" (for Date column), "Description", or column name
+- value_column: "Credit", "Debit", or "Balance"
+- aggregation: "sum", "count", or "avg"
+"""
+    
     try:
-        json.loads(clean_response)
-        context['visualization'] = clean_response  # Store in context for potential future use
-        return clean_response
-    except json.JSONDecodeError:
-        # Handle the error, maybe by returning a default error JSON
-        print("Error: LLM did not return valid JSON.")
-        return '{ "error": "Failed to generate valid visualization data." }'
+        response = llm.invoke(prompt)
+        content = response.content.strip().replace('json', '').replace('', '').strip()
+        config = json.loads(content)
+        print(f"✓ Config: {config}")
+    except Exception as e:
+        print(f"⚠ Using default config (LLM error: {e})")
+        config = {
+            "chart_type": "bar",
+            "group_by": "month",
+            "value_column": "Debit",
+            "aggregation": "sum"
+        }
+    
+    # Process data
+    df = df.copy()
+    
+    # Convert Date column
+    if 'Date' in df.columns:
+        df['Date'] = pd.to_datetime(df['Date'], format='%d-%m-%Y', errors='coerce')
+    
+    group = config.get('group_by', 'month')
+    value = config.get('value_column', 'Debit')
+    agg = config.get('aggregation', 'sum')
+    
+    # Handle month grouping
+    if group == 'month' and 'Date' in df.columns:
+        df['month'] = df['Date'].dt.strftime('%b %Y')
+        group = 'month'
+    
+    # Aggregate data
+    try:
+        if agg == 'sum':
+            chart_df = df.groupby(group)[value].sum().reset_index()
+        elif agg == 'count':
+            chart_df = df.groupby(group)[value].count().reset_index()
+        else:  # avg
+            chart_df = df.groupby(group)[value].mean().reset_index()
+        
+        # Sort by value and limit to top 12
+        chart_df = chart_df.sort_values(value, ascending=False).head(12)
+        
+        print(f"✓ Aggregated to {len(chart_df)} data points")
+        
+    except Exception as e:
+        print(f"❌ Aggregation failed: {e}")
+        return json.dumps({
+            "error": f"Failed to aggregate data: {e}",
+            "chart_type": "bar",
+            "data": []
+        })
+    
+    # Create coordinate data
+    data = []
+    for _, row in chart_df.iterrows():
+        data.append({
+            "x": str(row[group]),
+            "y": round(float(row[value]), 2)
+        })
+    
+    # Build result
+    result = {
+        "chart_type": config['chart_type'],
+        "title": f"{value} by {group.capitalize()}",
+        "x_label": group.capitalize(),
+        "y_label": f"{value} (₹)",
+        "data": data
+    }
+    
+    print(f"✓ Generated {len(data)} points")
+    print(f"   Sample: {data[:2]}")
+    
+    return json.dumps(result, indent=2)
