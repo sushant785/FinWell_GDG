@@ -97,7 +97,48 @@ const login = async (req, res) => {
   }
 };
 
+
+const getProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    res.json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+const updateProfile = async (req, res) => {
+  try {
+    const userId = req.user.id; // assuming you have auth middleware
+    const { fullName, email, phone, profileImage } = req.body;
+
+    // Update the user
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        username: fullName,
+        email,
+        phone,
+        profileImage,
+      },
+      { new: true } // return the updated document
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json(updatedUser);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 module.exports = {
   signup,
-  login
+  login,
+  getProfile,
+  updateProfile
 };

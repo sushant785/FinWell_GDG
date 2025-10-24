@@ -27,6 +27,10 @@ const userSchema = new mongoose.Schema(
       required: true,
       minlength: 6,
     },
+    profileImage: {
+      type: String, 
+      default: null,
+    },
     bankStatementUrl: {
       type: String, 
       default: null,

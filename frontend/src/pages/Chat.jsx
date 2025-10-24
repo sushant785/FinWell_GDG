@@ -216,7 +216,7 @@ export default function Chat() {
                 <path clipRule="evenodd" fillRule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor" />
               </svg>
             </div>
-            <h1 className="text-lg font-bold text-emerald-400">FinWell</h1>
+            <h1 className="text-lg font-bold text-emerald-400">FinGuru</h1>
           </Link>
         </div>
 
@@ -243,7 +243,7 @@ export default function Chat() {
       {/* Chat Section */}
       <main className="flex-1 flex flex-col items-center py-6 px-4 overflow-y-auto">
         <div className="w-full max-w-3xl flex flex-col flex-1 space-y-6 rounded-3xl bg-slate-900/80 border border-blue-900 shadow-lg shadow-blue-500/30 p-6">
-          <h2 className="text-3xl font-bold text-emerald-400 mb-4 text-center">Chat with FinWell</h2>
+          <h2 className="text-3xl font-bold text-emerald-400 mb-4 text-center">Chat with FinGuru</h2>
 
           <div className="flex-1 space-y-6 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-gray-900">
             {messages.map((msg, idx) => (

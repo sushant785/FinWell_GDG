@@ -23,60 +23,6 @@ import {
 } from "lucide-react";
 import UserDropdown from "../components/UserDropdown";
 
-// ------------------- DATA -------------------
-// const data = {
-//   monthly_summary: [
-//     { DrCr: "cr", Month: "2022-01", amount: 5808.09 },
-//     { DrCr: "db", Month: "2022-01", amount: 42984.0 },
-//     { DrCr: "cr", Month: "2022-02", amount: 58228.0 },
-//     { DrCr: "db", Month: "2022-02", amount: 90535.0 },
-//     { DrCr: "cr", Month: "2022-03", amount: 68902.0 },
-//     { DrCr: "db", Month: "2022-03", amount: 252428.0 },
-//     { DrCr: "cr", Month: "2022-04", amount: 86402.0 },
-//     { DrCr: "db", Month: "2022-04", amount: 217166.0 },
-//     { DrCr: "cr", Month: "2022-05", amount: 72591.09 },
-//     { DrCr: "db", Month: "2022-05", amount: 61374.0 },
-//     { DrCr: "cr", Month: "2022-06", amount: 112522.09 },
-//     { DrCr: "db", Month: "2022-06", amount: 69406.0 },
-//     { DrCr: "cr", Month: "2022-07", amount: 67412.0 },
-//     { DrCr: "db", Month: "2022-07", amount: 210017.0 },
-//     { DrCr: "cr", Month: "2022-08", amount: 427395.09 },
-//     { DrCr: "db", Month: "2022-08", amount: 58588.0 },
-//     { DrCr: "cr", Month: "2022-09", amount: 119758.51 },
-//     { DrCr: "db", Month: "2022-09", amount: 406404.01 },
-//     { DrCr: "cr", Month: "2022-10", amount: 16958.02 },
-//     { DrCr: "db", Month: "2022-10", amount: 95400.0 },
-//     { DrCr: "cr", Month: "2022-11", amount: 117857.0 },
-//     { DrCr: "db", Month: "2022-11", amount: 62485.0 },
-//     { DrCr: "cr", Month: "2022-12", amount: 104600.29 },
-//     { DrCr: "db", Month: "2022-12", amount: 69960.0 },
-//     { DrCr: "cr", Month: "2023-01", amount: 27512.09 },
-//     { DrCr: "db", Month: "2023-01", amount: 97607.0 },
-//     { DrCr: "cr", Month: "2023-02", amount: 92726.0 },
-//     { DrCr: "db", Month: "2023-02", amount: 99225.0 },
-//     { DrCr: "cr", Month: "2023-03", amount: 12501.0 },
-//     { DrCr: "db", Month: "2023-03", amount: 36710.0 },
-//     { DrCr: "cr", Month: "2023-04", amount: 79586.0 },
-//     { DrCr: "db", Month: "2023-04", amount: 43692.0 },
-//     { DrCr: "cr", Month: "2023-05", amount: 86858.0 },
-//     { DrCr: "db", Month: "2023-05", amount: 89978.0 },
-//     { DrCr: "cr", Month: "2023-06", amount: 71449.0 },
-//     { DrCr: "db", Month: "2023-06", amount: 98270.0 },
-//     { DrCr: "cr", Month: "2023-07", amount: 107946.18 },
-//     { DrCr: "db", Month: "2023-07", amount: 106584.98 },
-//     { DrCr: "cr", Month: "2023-08", amount: 72170.25 },
-//     { DrCr: "db", Month: "2023-08", amount: 56550.0 },
-//     { DrCr: "cr", Month: "2023-09", amount: 103427.09 },
-//     { DrCr: "db", Month: "2023-09", amount: 93876.0 },
-//     { DrCr: "cr", Month: "2023-10", amount: 116648.8 },
-//     { DrCr: "db", Month: "2023-10", amount: 58356.0 },
-//   ],
-//   total_summary: [
-//     { DrCr: "cr", amount: 2029258.59 },
-//     { DrCr: "db", amount: 2417595.99 },
-//   ],
-// };
-
 const data = {
   monthly_summary: [
     { DrCr: "cr", Month: "2022-01", amount: 5808.09 },
@@ -192,7 +138,7 @@ const Dashboard = () => {
                 />
               </svg>
             </div>
-            <h1 className="text-lg font-bold text-emerald-400">FinWell</h1>
+            <h1 className="text-lg font-bold text-emerald-400">FinGuru</h1>
           </Link>
         </div>
 

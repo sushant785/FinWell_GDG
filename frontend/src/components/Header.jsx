@@ -13,7 +13,7 @@ export default function Header() {
               d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z"
             />
           </svg>
-          <h2 className="text-xl font-bold text-white dark:text-white">FinWell</h2>
+          <h2 className="text-xl font-bold text-white dark:text-white">FinGuru</h2>
         </div>
         <nav className="hidden items-center gap-8 md:flex">
           {["Overview", "Features", "Pricing", "Resources"].map((item) => (
