@@ -2,7 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const path = require("path");
 const userAuth = require("../middlewares/userAuth.js")
-const { signup, login, getProfile, updateProfile } = require("../controllers/user.controller.js");
+const { signup, login, getProfile, updateProfile, replaceStatement } = require("../controllers/user.controller.js");
 
 const router = express.Router();
 
@@ -21,5 +21,6 @@ router.post("/signup", upload.single("file"), signup);
 router.post("/login", login);
 router.get("/profile",userAuth, getProfile);
 router.put("/profile", userAuth, updateProfile);
+router.put("/replace-statement",userAuth, upload.single("file"),replaceStatement)
 
 module.exports = router;
