@@ -4,7 +4,11 @@ const fs = require("fs");
 const cloudinary = require("../config/cloudinary.js")
 const bcrypt = require("bcryptjs");
 const User = require("../models/user.model.js");
-const generateToken = require("../middlewares/generateToken.js")
+const generateToken = require("../middlewares/generateToken.js");
+const { error } = require("console");
+
+
+// ----------------------- signup ------------------------------
 
 const signup = async (req, res) => {
   try {
@@ -65,6 +69,8 @@ const signup = async (req, res) => {
 };
 
 
+// ----------------------- login ------------------------------
+
 
 const login = async (req, res) => {
   try {
@@ -98,6 +104,10 @@ const login = async (req, res) => {
 };
 
 
+// ----------------------- Profile ------------------------------
+
+
+
 const getProfile = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
@@ -108,12 +118,15 @@ const getProfile = async (req, res) => {
   }
 };
 
+
+// ----------------------- Update Profile ------------------------------
+
+
 const updateProfile = async (req, res) => {
   try {
-    const userId = req.user.id; // assuming you have auth middleware
+    const userId = req.user.id;
     const { fullName, email, phone, profileImage } = req.body;
 
-    // Update the user
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       {
@@ -136,9 +149,68 @@ const updateProfile = async (req, res) => {
   }
 };
 
+
+// ----------------------- Replace CSV ------------------------------
+
+const replaceStatement = async(req,res) => {
+  let newFile;
+
+  try {
+
+    if(!req.file)
+    {
+      return res.status(400).json({message: "No file uploaded"})
+    }
+    newFile = req.file.path
+
+    const userId = req.user.id;
+    const user = await User.findById(userId)
+    if(!user) {
+      fs.unlinkSync(newFile)
+      return res.status(404).json({message:"user not found"})
+    }
+
+    const oldStatementID = user.bankStatementId
+    if(!oldStatementID) {
+      fs.unlinkSync(newFile);
+      return res.status(400).json({message:"Cannot Replace File: Original file ID is missing"})
+    }
+
+    const uploadNew = await cloudinary.uploader.upload(newFile, {
+      resource_type: "raw",
+      folder: "bank_statements",
+      public_id: oldStatementID,
+      overwrite: true
+    });
+
+    user.bankStatementUrl = uploadNew.secure_url;
+
+    await user.save();
+
+    res.status(200).json({
+      message:"bank statement updated successfully",
+      bankStatementUrl:user.bankStatementUrl,
+    })
+  }
+  catch(err) {
+    console.error("Error replacing bank statement:", error);
+    res.status(500).json({message:"error replacing file : ",error:error.message});
+  }
+  finally {
+    if (newFile) {
+      fs.unlink(newFile, (err) => {
+        if (err) console.error("Error deleting temporary file:", err);
+      });
+    }
+  }
+}
+
+
+
 module.exports = {
   signup,
   login,
   getProfile,
-  updateProfile
+  updateProfile,
+  replaceStatement
 };
