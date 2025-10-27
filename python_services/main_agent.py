@@ -27,7 +27,7 @@ class FinWellAgent:
     # ---------------------------------------------------------------
     def run_pipeline(self):
         """
-        Runs agents as per the Decider’s instructions.
+        Runs agents as per the Decider's instructions.
         Returns a JSON-ready dict with main output + visualization.
         """
         try:
@@ -45,7 +45,7 @@ class FinWellAgent:
 
             for agent_name in agent_list:
                 try:
-                    # ------------------ STEP 1: DATA ANALYSIS ------------------
+                    # ------------------ AGENT 1: DATA ANALYSIS ------------------
                     if agent_name == "create_data_analysis_agent":
                         print("\n--- Step 1: Data Analysis ---")
                         analysis = create_data_analysis_agent(self.df)
@@ -53,7 +53,7 @@ class FinWellAgent:
                         self.results["data_analysis"] = analysis
                         print(f"✓ Data Analysis Complete")
 
-                    # ------------------ STEP 2: RESEARCH ------------------
+                    # ------------------ AGENT 2: RESEARCH ------------------
                     elif agent_name == "create_research_agent":
                         print("\n--- Step 2: Research ---")
                         research = create_research_agent(self.query, self.context)
@@ -61,7 +61,7 @@ class FinWellAgent:
                         self.results["research"] = research
                         print(f"✓ Research Complete")
 
-                    # ------------------ STEP 3: VISUALIZATION ------------------
+                    # ------------------ AGENT 3: VISUALIZATION ------------------
                     elif agent_name == "create_visualization_points":
                         print("\n--- Step 3: Creating Visualization Points ---")
                         visualization = create_visualization_points(self.query, self.context, self.df)
@@ -69,7 +69,7 @@ class FinWellAgent:
                         self.results["visualization"] = visualization
                         print(f"✓ Visualization Points Generated")
 
-                    # ------------------ STEP 4: PLANNING ------------------
+                    # ------------------ AGENT 4: PLANNING ------------------
                     elif agent_name == "planner":
                         print("\n--- Step 4: Generating Plan ---")
                         plan = planner(self.query, self.context)
@@ -77,7 +77,7 @@ class FinWellAgent:
                         self.results["plan"] = plan
                         print(f"✓ Plan Generated")
 
-                    # ------------------ STEP 5: INVESTMENT ------------------
+                    # ------------------ AGENT 5: INVESTMENT ------------------
                     elif agent_name == "investment_agent":
                         print("\n--- Step 5: Investment Analysis ---")
                         investment = investment_agent(self.query, self.context)
